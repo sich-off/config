@@ -1,0 +1,4 @@
+config - a bunch of config files
+
+This repository includes configs and some scripts, grouped like they
+should be in a $HOME of a user, but excluding private information.
