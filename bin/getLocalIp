@@ -1,0 +1,3 @@
+#!/bin/bash
+# get local network ip from arp
+sudo arp-scan -I wlan1 -l | head --lines=-3 | tail --lines=+3 | awk '{ print $1; }'

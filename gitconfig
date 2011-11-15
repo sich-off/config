@@ -1,0 +1,7 @@
+[alias]
+	st = status
+	l = log --stat --graph --decorate --abbrev-commit --date=relative
+[colorr]
+	ui = true
+[log]
+	decorate = true

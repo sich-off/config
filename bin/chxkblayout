@@ -1,0 +1,17 @@
+#!/bin/bash
+layout=$(setxkbmap -print | grep "xkb_symbols" | awk -F\  "{ print \$4 }" | sed -e "s/^.\(.*\).$/\1/" | awk -F+ "{ print \$2 }")
+new_layout="us"
+
+
+if [[ "$layout" == "us" ]]; then
+  new_layout="ru"
+fi
+if [[ "$layout" == "ru" ]]; then
+  new_layout="us"
+fi
+#if [[ "$layout" == "ua" ]]; then
+#  new_layout="us"
+#fi
+
+setxkbmap $new_layout
+echo 'kbdbox.text = kbd_state()' | awesome-client -
