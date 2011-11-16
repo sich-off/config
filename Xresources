@@ -1,8 +1,0 @@
-URxvt.scrollBar: false
-URxvt.background: Black
-URxvt.foreground: White
-URxvt.internalBorder: 0
-URxvt.externalBorder: 0
-URxvt.borderless: true
-!URxvt.font: xft:Terminus:pixelsize=12
-URxvt.font: -*-terminus-*-*-*-*-12-*-*-*-*-*-*-*
