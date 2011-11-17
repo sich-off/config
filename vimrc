@@ -22,6 +22,7 @@ endif
 "set t_Co=88
 "set t_Co=256
 
+"whitespace highlighting{{{"
 " show unneeded whitespace characters
 highlight ExtraWhitespace ctermbg=red guibg=red
 match ExtraWhitespace /\s\+$/
@@ -31,6 +32,7 @@ autocmd InsertLeave * match ExtraWhitespace /\s\+$/
 autocmd BufWinLeave * call clearmatches()
 ":match ExtraWhitespace /\s\+$\| \+\ze\t/
 autocmd ColorScheme * highlight ExtraWhitespace ctermbg=red guibg=red
+"}}}"
 
 colorscheme sich_off
 
@@ -55,8 +57,39 @@ set shiftwidth=2
 set softtabstop=2
 set cryptmethod=blowfish
 
-" language mapping
-"{{{"
+autocmd BufRead,BufNewFile .bash_aliases
+      \ let b:is_bash = 1|set ft=sh
+autocmd BufRead,BufNewFile *.mdwn
+      \ set textwidth=76 |
+      \ set autoindent |
+      \ set formatoptions-=c |
+      \ set filetype=markdown
+
+"gpg encrypted files{{{"
+" Transparent editing of gpg encrypted files.
+augroup encrypted
+  au!
+
+  autocmd BufReadPre,FileReadPre      *.gpg set viminfo=
+  autocmd BufReadPre,FileReadPre      *.gpg set noswapfile
+  autocmd BufReadPre,FileReadPre      *.gpg set bin
+
+  autocmd BufReadPost,FileReadPost    *.gpg let _sh=&sh | let &sh='sh'
+  autocmd BufReadPost,FileReadPost    *.gpg '[,']!gpg -d 2>/dev/null
+  autocmd BufReadPost,FileReadPost    *.gpg let &sh=_sh | unlet _sh
+  autocmd BufReadPost,FileReadPost    *.gpg set nobin
+  autocmd BufReadPost,FileReadPost    *.gpg execute ":doautocmd BufReadPost " . expand("%:r")
+
+  autocmd BufWritePre,FileWritePre    *.gpg set bin
+  autocmd BufWritePre,FileWritePre    *.gpg let _sh=&sh | let &sh='sh'
+  autocmd BufWritePre,FileWritePre    *.gpg '[,']!gpg -e --default-recipient-self 2>/dev/null
+  autocmd BufWritePre,FileWritePre    *.gpg let &sh=_sh | unlet _sh
+
+  autocmd BufWritePost,FileWritePost  *.gpg silent u
+  autocmd BufWritePost,FileWritePost  *.gpg set nobin
+augroup END
+"}}}"
+"language mapping{{{"
 " russian
 map ё `
 map й q
@@ -132,11 +165,3 @@ map Ї }
 map І S
 map Є "
 "}}}"
-
-autocmd BufRead,BufNewFile .bash_aliases
-      \ let b:is_bash = 1|set ft=sh
-autocmd BufRead,BufNewFile *.mdwn
-      \ set textwidth=76 |
-      \ set autoindent |
-      \ set formatoptions-=c |
-      \ set filetype=markdown
