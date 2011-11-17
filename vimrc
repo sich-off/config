@@ -82,7 +82,7 @@ augroup encrypted
 
   autocmd BufWritePre,FileWritePre    *.gpg set bin
   autocmd BufWritePre,FileWritePre    *.gpg let _sh=&sh | let &sh='sh'
-  autocmd BufWritePre,FileWritePre    *.gpg '[,']!gpg -e --default-recipient-self 2>/dev/null
+  autocmd BufWritePre,FileWritePre    *.gpg '[,']!gpg -e --default-recipient-self -s 2>/dev/null
   autocmd BufWritePre,FileWritePre    *.gpg let &sh=_sh | unlet _sh
 
   autocmd BufWritePost,FileWritePost  *.gpg silent u
