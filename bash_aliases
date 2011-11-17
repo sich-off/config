@@ -74,3 +74,8 @@ if [ -x /usr/bin/grc ]; then
   alias diff='grc diff'
   alias df='grc df'
 fi
+
+# gpg aliases
+alias gpg-self-encrypt='gpg --encrypt --default-recipient-self'
+alias gpg-decrypt='gpg --decrypt'
+alias gpg-self-decrypt=gpg-decrypt
